@@ -1,0 +1,23 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
+.App {
+  width: 100vw;
+  height: 100vh;
+  border: 0;
+  padding: 0;
+}
+.gjs-pn-views-container{
+  width:250px !important;
+}
+.gjs-pn-options{
+  right: 250px !important;
+}
+.gjs-pn-commands{
+  max-width: calc(100vw - 250px) !important;
+}
+.gjs-cv-canvas{
+  max-width: calc(100vw - 250px) !important;
+}
