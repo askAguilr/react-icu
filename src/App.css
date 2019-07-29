@@ -1,23 +1,48 @@
-body,
-html {
-  height: 100%;
+body, html {
   margin: 0;
-}
-.App {
-  width: 100vw;
+  font: caption;
   height: 100vh;
-  border: 0;
-  padding: 0;
 }
-.gjs-pn-views-container{
-  width:250px !important;
+#gjs {
+  height: auto;
+  width: auto;
+  max-width: calc(100vw - 460px);
+  min-height: calc(100vh - 250px);
+  max-height: calc(100vh - 250px);
 }
-.gjs-pn-options{
-  right: 250px !important;
+
+/* Reset some default styling */
+.gjs-cv-canvas {
+  top: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
 }
-.gjs-pn-commands{
-  max-width: calc(100vw - 250px) !important;
+
+#navbar{
+  height: 40px;
 }
-.gjs-cv-canvas{
-  max-width: calc(100vw - 250px) !important;
+
+#main{
+  background-color: #333;
+  display: flex;
+  height: auto;
+  min-height: calc(100vh - 250px);
+  max-height: calc(100vh - 250px);
+  overflow: hidden;
+}
+
+#blocks{
+  height: 200px;
+}
+
+#right{
+  overflow-y: auto;
+  width: 230px;
+  height: auto;
+}
+
+#left{
+  overflow-y: auto;
+  width: 230px;
+  height: auto;
 }
