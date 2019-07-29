@@ -7,7 +7,7 @@ import exportPlugin from 'grapesjs-plugin-export';
 import HTMLtoJSX from 'htmltojsx';
 
 const jsxConverter = new HTMLtoJSX({
-  createClass: true,
+  createClass: false,
   outputClassName: 'ReactWeaverComponent'
 });
 
@@ -94,9 +94,30 @@ function Editor() {
           layerManager: {
             appendTo: '.layers-container'
           },
-          plugins: [editor => exportPlugin(editor, { 
-            filenamePfx:'react-weaver-export',
-          }),],
+          plugins: [exportPlugin],
+          pluginsOpts: {
+             [exportPlugin]: { 
+                filenamePfx:'react-weaver-export',
+                root:{
+                    component: {
+                      'style.css': ed => ed.getCss(),
+                      
+                      'index.js': ed => `import React from 'react';
+                      import './style.css';
+                      
+                      function ReactWeaverComponent() {
+                        return (
+                            ${jsxConverter.convert(ed.getHtml())}
+                        );
+                      }
+                      
+                      export default ReactWeaverComponent;
+                      `,
+                    },
+                    'made with react weaver.txt': 'Great isn´t it?',
+                  }
+             }
+          },
       });
   });
 
