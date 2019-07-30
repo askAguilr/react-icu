@@ -7,8 +7,8 @@ body, html {
   height: auto;
   width: auto;
   max-width: calc(100vw - 460px);
-  min-height: calc(100vh - 250px);
-  max-height: calc(100vh - 250px);
+  min-height: calc(100vh - 240px);
+  max-height: calc(100vh - 240px);
 }
 
 /* Reset some default styling */
@@ -16,6 +16,14 @@ body, html {
   top: 0 !important;
   width: 100% !important;
   height: 100% !important;
+}
+.gjs-block{
+  width: 75px !important;
+  height: 60px !important;
+}
+.gjs-blocks-cs{
+  height: 100%;
+  overflow-y:auto;
 }
 
 #navbar{
@@ -26,8 +34,7 @@ body, html {
   background-color: #333;
   display: flex;
   height: auto;
-  min-height: calc(100vh - 250px);
-  max-height: calc(100vh - 250px);
+  max-height: calc(100vh - 240px);
   overflow: hidden;
 }
 
@@ -37,12 +44,12 @@ body, html {
 
 #right{
   overflow-y: auto;
-  width: 230px;
+  width: 240px;
   height: auto;
 }
 
 #left{
   overflow-y: auto;
-  width: 230px;
+  width: 240px;
   height: auto;
 }
