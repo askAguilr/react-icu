@@ -22,9 +22,9 @@ const  style ={
           ],
         }]
       },{
-        name: "Decorations",
+        name: "Appearance",
         open: false,
-        buildProps: ['border-radius-c', 'background-color', 'border-radius', 'border', 'box-shadow', 'background'],
+        buildProps: ['border-radius-c', 'border-radius', 'border', 'box-shadow', 'background','background-color','cursor'],
       },{
         name: "Other",
         open: false,

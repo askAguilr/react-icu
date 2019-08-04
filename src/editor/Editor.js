@@ -3,21 +3,19 @@ import {Navbar,Nav,Form,FormControl,Button} from 'react-bootstrap';
 
 import grapesjs from 'grapesjs';
 import 'grapesjs/dist/css/grapes.min.css';
-import exportPlugin from 'grapesjs-plugin-export';
-import HTMLtoJSX from 'htmltojsx';
 import blocks from './blocks'
 import style from './style'
 import storage from  './storage'
-const jsxConverter = new HTMLtoJSX({
-  createClass: false,
-  outputClassName: 'ReactWeaverComponent'
-});
+import {plugins,pluginsOpts} from './plugins'
 
 let editor;
 function Editor() {
   useEffect(()=>{
     editor = grapesjs.init({
         container: '#gjs',
+        canvas:{
+          styles:['https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css']
+        },
         fromElement: true,
         storageManager: storage,
         panels: { defaults: [] },
@@ -25,34 +23,20 @@ function Editor() {
           appendTo: '#blocks',
           blocks: blocks
         },
+        traitManager: {
+          appendTo: '.styles-container',
+        },
+        selectorManager: {
+          appendTo: '.styles-container'
+        },
+        
         styleManager: style,
-          layerManager: {
-            appendTo: '.layers-container'
-          },
-          plugins: [exportPlugin],
-          pluginsOpts: {
-             [exportPlugin]: { 
-                filenamePfx:'react-weaver-export',
-                root:{
-                    component: {
-                      'style.css': ed => ed.getCss(),
-                      
-                      'index.js': ed => `import React from 'react';
-                      import './style.css';
-                      
-                      function ReactWeaverComponent() {
-                        return (
-                            ${jsxConverter.convert(ed.getHtml())}
-                        );
-                      }
-                      
-                      export default ReactWeaverComponent;
-                      `,
-                    },
-                    'made with react weaver.txt': 'Great isn´t it?',
-                  }
-             }
-          },
+        layerManager: {
+          appendTo: '.layers-container'
+        },
+        plugins: plugins,
+        pluginsOpts: pluginsOpts
+        
       });
   });
 
@@ -60,16 +44,22 @@ function Editor() {
       console.log();
     editor.runCommand('gjs-export-zip');
   }
+
+  const handleNew = ()=>{
+    editor.setComponents('')
+  }
   
   return (
     <div id="editor">
       <Navbar id="navbar" bg="dark" variant="dark">
         <Navbar.Brand href="#home">ReactWeaver</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link >Components</Nav.Link>
-          <Nav.Link href="#features">Assets</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
-          <Button onClick={handleExport} variant="secondary">Export</Button>
+          <Nav.Link onClick={handleNew}>New</Nav.Link>
+
+          <Button variant="secondary">Initialize</Button>
+        </Nav>
+        <Nav style={{float:'right'}}>
+          <Button onClick={handleExport} variant="outline-light">Export</Button>
         </Nav>
       </Navbar>
       <div id='main'>

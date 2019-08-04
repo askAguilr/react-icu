@@ -97,6 +97,22 @@ const blocks = ()=>{
           id:'bootstrap',
           label:'Bootstrap',
           content:'<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">'
+        },
+        {
+          tagName: 'div',
+          draggable: false,
+          attributes: { 'some-attribute': 'some-value' },
+          components: [
+            {
+              tagName: 'span',
+              content: '<b>Some static content</b>',
+            }, {
+              tagName: 'div',
+              // use `content` for static strings, `components` string will be parsed
+              // and transformed in Components
+              components: '<span>HTML at some point</span>',
+            }      
+          ]
         }
 
       ]
