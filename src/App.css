@@ -53,3 +53,11 @@ body, html {
   width: 240px;
   height: auto;
 }
+
+#code{
+  display: inline;
+}
+
+#design{
+  display: inline;
+}
