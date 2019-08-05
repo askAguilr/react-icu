@@ -55,65 +55,155 @@ const blocks = ()=>{
             " data-gjs-type="div"></div>`,
         },
         {
-          id: 'button',
-          label: '<b>Button</b>',
-          content: `<button class="pure-material-button-contained"style="
-            position: relative;
-            display: inline-block;
-            box-sizing: border-box;
-            border: none;
-            border-radius: 4px;
-            padding: 0 16px;
-            min-width: 64px;
-            height: 36px;
-            vertical-align: middle;
-            text-align: center;
-            text-overflow: ellipsis;
-            text-transform: uppercase;
-            color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
-            background-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
-            box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 36px;
-            overflow: hidden;
-            outline: none;
-            cursor: pointer;
-            transition: box-shadow 0.2s;
-          ">Button</button>`,
+          id:'button2',
+          label:'<b>Raised button</b>',
+          content:`<button type="button" class="btn btn-raised btn-primary">Primary</button>`
         },
         {
-          id: 'switch',
-          label: '<b>Switch</b>',
+          id: 'button',
+          label: '<b>Button</b>',
         content: `
         <button type="button" class="btn btn-primary">Primary</button>`,
         },
         {
-          id:'bootstrap-md',
-          label:'Material UI Theme',
-          content: '<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">'
+          id:'badge',
+          label:'<b>Badge</b>',
+          content:'<span class="badge badge-secondary">New</span>'
         },
         {
-          id:'bootstrap',
-          label:'Bootstrap',
-          content:'<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">'
+          id:'button-group',
+          label:'<b>Button group</b>',
+          content:`<div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary">Left</button>
+          <button type="button" class="btn btn-secondary">Middle</button>
+          <button type="button" class="btn btn-secondary">Right</button>
+        </div>`
         },
         {
-          tagName: 'div',
-          draggable: false,
-          attributes: { 'some-attribute': 'some-value' },
-          components: [
-            {
-              tagName: 'span',
-              content: '<b>Some static content</b>',
-            }, {
-              tagName: 'div',
-              // use `content` for static strings, `components` string will be parsed
-              // and transformed in Components
-              components: '<span>HTML at some point</span>',
-            }      
-          ]
+          id:'card-extended',
+          label:'<b>Card Extended</b>',
+          content:`<div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="https://picsum.photos/300/180" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>`
+        },
+        {
+          id:'dropdown',
+          label:'<b>Dropdown</b>',
+          content:`<div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown button
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>`
+        },
+        {
+          id:'form',
+          label:'<b>Form</b>',
+          content:`<form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>`
+        },
+        {
+          id:'modal',
+          label:'<b>Modal</b>',
+          content:`<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          Launch demo modal
+        </button>
+        
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>`
+        },
+        {
+          id:'navbar',
+          label:'<b>Navbar</b>',
+          content:`<nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </div>
+        </nav>`
+        },
+        {
+          id:'progress',
+          label:'<b>Progress</b>',
+          content:`<div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>`
+        },
+        {
+          id:'icon',
+          label:'<b>Icon</b>',
+          content:'<i class="material-icons">more_vert</i>'
         }
+
 
       ]
 }

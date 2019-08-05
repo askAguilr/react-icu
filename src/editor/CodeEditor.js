@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import Editor from "@monaco-editor/react";
  
-const CodeEditor= () =>{
+const CodeEditor= props =>{
+  const {code} = props;
   const [isEditorReady, setIsEditorReady] = useState(false);
   const valueGetter = useRef();
  
@@ -21,10 +22,11 @@ const CodeEditor= () =>{
       </button>
  
       <Editor
+
         height="90vh"
         language="javascript"
         theme='dark'
-        value={"// write your code here"}
+        value={code}
         editorDidMount={handleEditorDidMount}
       />
     </>

@@ -8,10 +8,19 @@ import style from './style'
 import storage from  './storage'
 import {plugins,pluginsOpts} from './plugins'
 import CodeEditor from './CodeEditor'
+import HTMLtoJSX from 'htmltojsx';
+
+const jsxConverter = new HTMLtoJSX({
+    createClass: false,
+    outputClassName: 'ReactWeaverComponent'
+  });
+  
+
 
 let editor;
 function Editor() {
   const [mode,setMode] = useState('design');
+  const [code,setCode] = useState('');
 
   useEffect(()=>{
     editor = grapesjs.init({
@@ -51,20 +60,34 @@ function Editor() {
   const handleNew = ()=>{
     editor.setComponents('')
   }
+
+  const handleCode = ()=>{
+    setMode('code');
+    setCode(
+      `import React from 'react';
+      import './style.css';
+              
+      function Component() {
+        return (
+          ${jsxConverter.convert(editor.getHtml())}
+        );
+      }
+                
+      export default Component;`
+    );
+  }
   
   return (
     <>
       <Navbar id="navbar" bg="dark" variant="dark">
-          <Navbar.Brand href="#home">ReactWeaver</Navbar.Brand>
+          <Navbar.Brand href="#home">React.ICU</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link onClick={handleNew}>New</Nav.Link>
-
-            <Button variant="secondary">Initialize</Button>
           </Nav>
           <Nav className="mr-auto">
            <ButtonGroup aria-label="View mode">
               <Button onClick={setMode.bind(this,'design')} variant="outline-light">Design</Button>
-              <Button onClick={setMode.bind(this,'code')}  variant="outline-light">Code</Button>
+              <Button onClick={handleCode}  variant="outline-light">Code</Button>
             </ButtonGroup>
           </Nav>
           <Nav style={{float:'right'}}>
@@ -87,7 +110,7 @@ function Editor() {
       </div>
       <div id="code" style={{display:mode==='code'?'block':'none'}}>
    
-          <CodeEditor/>
+          <CodeEditor code={code}/>
    
       </div>
     </>
