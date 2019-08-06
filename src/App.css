@@ -58,6 +58,10 @@ body, html {
   display: inline;
 }
 
+#code section {
+  max-height: calc(100vh - 43px);
+}
+
 #design{
   display: inline;
 }

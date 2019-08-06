@@ -17,13 +17,8 @@ const CodeEditor= props =>{
  
   return (
     <>
-      <button onClick={handleShowValue} disabled={!isEditorReady}>
-        Show value
-      </button>
- 
       <Editor
-
-        height="90vh"
+        height="100vh"
         language="javascript"
         theme='dark'
         value={code}

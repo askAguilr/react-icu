@@ -8,13 +8,7 @@ import style from './style'
 import storage from  './storage'
 import {plugins,pluginsOpts} from './plugins'
 import CodeEditor from './CodeEditor'
-import HTMLtoJSX from 'htmltojsx';
-
-const jsxConverter = new HTMLtoJSX({
-    createClass: false,
-    outputClassName: 'ReactWeaverComponent'
-  });
-  
+import codeTemplate from './codeTemplate'
 
 
 let editor;
@@ -50,6 +44,23 @@ function Editor() {
         pluginsOpts: pluginsOpts
         
       });
+      const rte = editor.RichTextEditor;
+      rte.remove('link');
+      rte.add('expr', {
+        icon: `<input></input>`,
+          // Bind the 'result' on 'change' listener
+        event: 'change',
+        result: (rte,action) => rte.insertHTML(`<a prop="${action.btn.firstChild.value}">${rte.selection()}</a>`),// rte.exec('funny', action.btn.firstChild.value),
+        // Callback on any input change (mousedown, keydown, etc..)
+        update: (rte, action) => {
+          const value = rte.doc.queryCommandValue(action.name);
+          if (value != 'false') { // value is a string
+            action.btn.firstChild.value = value;
+          }
+         }
+        })
+
+ 
   },[]);
 
   const handleExport = ()=>{
@@ -58,23 +69,24 @@ function Editor() {
   }
 
   const handleNew = ()=>{
-    editor.setComponents('')
+    editor.setComponents('');
   }
 
-  const handleCode = ()=>{
-    setMode('code');
-    setCode(
-      `import React from 'react';
-      import './style.css';
-              
-      function Component() {
-        return (
-          ${jsxConverter.convert(editor.getHtml())}
-        );
-      }
-                
-      export default Component;`
-    );
+  const handleTab = (mode) => {
+    setMode(mode);
+    switch(mode){
+      case 'design':
+          console.log("Design tab");
+          break;
+      case 'code':
+          console.log("Code tab");
+          setCode(codeTemplate);
+          break;
+      case 'test':
+          console.log("Test tab");
+          break;
+      default:
+    }    
   }
   
   return (
@@ -86,8 +98,9 @@ function Editor() {
           </Nav>
           <Nav className="mr-auto">
            <ButtonGroup aria-label="View mode">
-              <Button onClick={setMode.bind(this,'design')} variant="outline-light">Design</Button>
-              <Button onClick={handleCode}  variant="outline-light">Code</Button>
+              <Button onClick={handleTab.bind(this,'design')} variant="outline-light">Design</Button>
+              <Button onClick={handleTab.bind(this,'code')}  variant="outline-light">Code</Button>
+              <Button onClick={handleTab.bind(this,'test')}  variant="outline-light"><span style={{marginLeft:8,marginRight:8}}>Test</span></Button>
             </ButtonGroup>
           </Nav>
           <Nav style={{float:'right'}}>
@@ -109,9 +122,10 @@ function Editor() {
           <div id="blocks"></div>
       </div>
       <div id="code" style={{display:mode==='code'?'block':'none'}}>
-   
           <CodeEditor code={code}/>
-   
+      </div>
+      <div id="test" style={{display:mode==='test'?'block':'none'}}>
+        <h1>Tests tab is under construction</h1>
       </div>
     </>
   );
