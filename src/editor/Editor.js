@@ -8,7 +8,15 @@ import style from './style'
 import storage from  './storage'
 import {plugins,pluginsOpts} from './plugins'
 import CodeEditor from './CodeEditor'
-import codeTemplate from './codeTemplate'
+import codeTemplate,{buildTestCode} from './codeTemplate'
+import {LiveProvider,LiveEditor,LiveError,LivePreview} from 'react-live'
+
+import HTMLtoJSX from 'htmltojsx';
+
+const jsxConverter = new HTMLtoJSX({
+    createClass: false,
+    outputClassName: 'ReactWeaverComponent'
+  });
 
 
 let editor;
@@ -72,6 +80,12 @@ function Editor() {
     editor.setComponents('');
   }
 
+  const handleCode = (newValue, event)=>{
+    console.log("handle code");
+    console.log(newValue)
+    setCode(newValue);
+  }
+
   const handleTab = (mode) => {
     setMode(mode);
     switch(mode){
@@ -89,6 +103,7 @@ function Editor() {
     }    
   }
   
+  console.log(code);
   return (
     <>
       <Navbar id="navbar" bg="dark" variant="dark">
@@ -122,10 +137,14 @@ function Editor() {
           <div id="blocks"></div>
       </div>
       <div id="code" style={{display:mode==='code'?'block':'none'}}>
-          <CodeEditor code={code}/>
+          <CodeEditor code={code} onChange={handleCode}/>
       </div>
       <div id="test" style={{display:mode==='test'?'block':'none'}}>
-        <h1>Tests tab is under construction</h1>
+        <LiveProvider code={buildTestCode(''||code.replace('MAGICALLY_GENERATED_JSX', jsxConverter.convert(editor&&editor.getHtml()||'')))} noInline={true}>
+          {console.log(buildTestCode(''||code.replace('MAGICALLY_GENERATED_JSX', jsxConverter.convert(editor&&editor.getHtml()||''))))}
+          <LiveError />
+          <LivePreview />
+        </LiveProvider>
       </div>
     </>
   );

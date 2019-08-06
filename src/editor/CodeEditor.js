@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import Editor from "@monaco-editor/react";
  
 const CodeEditor= props =>{
-  const {code} = props;
+  const {code,onChange} = props;
   const [isEditorReady, setIsEditorReady] = useState(false);
   const valueGetter = useRef();
  
@@ -23,6 +23,7 @@ const CodeEditor= props =>{
         theme='dark'
         value={code}
         editorDidMount={handleEditorDidMount}
+        onChange={onChange}
       />
     </>
   );
