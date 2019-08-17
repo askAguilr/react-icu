@@ -140,12 +140,11 @@ function Editor() {
           <CodeEditor code={code} onChange={handleCode}/>
       </div>
       <div id="test" style={{display:mode==='test'?'block':'none'}}>
-        {mode==='test'?
-        <LiveProvider code={buildTestCode(''||code.replace('MAGICALLY_GENERATED_JSX', jsxConverter.convert((editor&&editor.getHtml())||'')))} noInline={true}>
+        <LiveProvider code={buildTestCode(''||code.replace('MAGICALLY_GENERATED_JSX', jsxConverter.convert(editor&&editor.getHtml()||'')))} noInline={true}>
+          {console.log(buildTestCode(''||code.replace('MAGICALLY_GENERATED_JSX', jsxConverter.convert(editor&&editor.getHtml()||''))))}
           <LiveError />
           <LivePreview />
         </LiveProvider>
-        :null}
       </div>
     </>
   );

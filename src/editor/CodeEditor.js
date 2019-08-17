@@ -4,21 +4,15 @@ import Editor from "@monaco-editor/react";
 const CodeEditor= props =>{
   const {code,onChange} = props;
   const [isEditorReady, setIsEditorReady] = useState(false);
-  const editorRef = useRef();
-  const BAD_WORD = "eval";
-  const WORNING_MESSAGE = " <- hey man, what's this?";
-
-  function handleEditorDidMount(_valueGetter,editor) {
+  const valueGetter = useRef();
+ 
+  function handleEditorDidMount(_valueGetter) {
     setIsEditorReady(true);
-    editorRef.current = editor;
-    editorRef.current.onDidChangeModelContent(ev => {
-      const value=editorRef.current.getValue();
-      onChange(value.includes(BAD_WORD) && !value.includes(WORNING_MESSAGE)
-      ? value.replace(BAD_WORD, BAD_WORD + WORNING_MESSAGE)
-      : value.includes(WORNING_MESSAGE) && !value.includes(BAD_WORD)
-        ? value.replace(WORNING_MESSAGE, "")
-        : value);
-    });
+    valueGetter.current = _valueGetter;
+  }
+ 
+  function handleShowValue() {
+    alert(valueGetter.current());
   }
  
   return (
@@ -29,6 +23,7 @@ const CodeEditor= props =>{
         theme='dark'
         value={code}
         editorDidMount={handleEditorDidMount}
+        onChange={onChange}
       />
     </>
   );
