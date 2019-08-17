@@ -1,6 +1,6 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import {Navbar,Nav,Form,FormControl,Button, ButtonGroup} from 'react-bootstrap';
-
+import { storiesOf } from '@storybook/react';
 import grapesjs from 'grapesjs';
 import 'grapesjs/dist/css/grapes.min.css';
 import blocks from './blocks'
@@ -10,8 +10,9 @@ import {plugins,pluginsOpts} from './plugins'
 import CodeEditor from './CodeEditor'
 import codeTemplate,{buildTestCode} from './codeTemplate'
 import {LiveProvider,LiveEditor,LiveError,LivePreview} from 'react-live'
-
+import StorybookProvider from './StorybookProvider'
 import HTMLtoJSX from 'htmltojsx';
+import renderStorybookUI from '@storybook/ui';
 
 const jsxConverter = new HTMLtoJSX({
     createClass: false,
@@ -23,7 +24,8 @@ let editor;
 function Editor() {
   const [mode,setMode] = useState('design');
   const [code,setCode] = useState('');
-
+  const storyRef = useRef();
+  const storyProvider = new StorybookProvider();
   useEffect(()=>{
     editor = grapesjs.init({
         container: '#gjs',
@@ -62,13 +64,21 @@ function Editor() {
         // Callback on any input change (mousedown, keydown, etc..)
         update: (rte, action) => {
           const value = rte.doc.queryCommandValue(action.name);
+          // eslint-disable-next-line 
           if (value != 'false') { // value is a string
             action.btn.firstChild.value = value;
           }
          }
-        })
-
- 
+        });
+        //console.log(buildTestCode(''||code.replace('MAGICALLY_GENERATED_JSX', jsxConverter.convert(editor&&editor.getHtml()||''))));
+        storyProvider.setComponent(
+          
+          <LiveProvider code={buildTestCode(''||code.replace('MAGICALLY_GENERATED_JSX', jsxConverter.convert(editor&&editor.getHtml()||'')))} noInline={true}>
+            <LiveError />
+            <LivePreview />
+          </LiveProvider>
+        );
+        renderStorybookUI(storyRef.current, storyProvider);
   },[]);
 
   const handleExport = ()=>{
@@ -78,10 +88,10 @@ function Editor() {
 
   const handleNew = ()=>{
     editor.setComponents('');
+    setCode(codeTemplate);
   }
 
-  const handleCode = (newValue, event)=>{
-    console.log("handle code");
+  const handleCode = (newValue)=>{
     console.log(newValue)
     setCode(newValue);
   }
@@ -90,20 +100,24 @@ function Editor() {
     setMode(mode);
     switch(mode){
       case 'design':
-          console.log("Design tab");
           break;
       case 'code':
-          console.log("Code tab");
-          setCode(codeTemplate);
           break;
       case 'test':
-          console.log("Test tab");
+          storiesOf('Addons|Custom options', module)
+  // If you want to set the option for all stories in of this kind
+  .addParameters({ options: { addonPanelInRight: true } })
+  .add(
+    'Story for MyComponent',
+    () => <h1>works</h1>,
+    { options: { addonPanelInRight: false } }
+  );
           break;
+          
       default:
     }    
   }
-  
-  console.log(code);
+
   return (
     <>
       <Navbar id="navbar" bg="dark" variant="dark">
@@ -117,7 +131,7 @@ function Editor() {
               <Button onClick={handleTab.bind(this,'code')}  variant="outline-light">Code</Button>
               <Button onClick={handleTab.bind(this,'test')}  variant="outline-light"><span style={{marginLeft:8,marginRight:8}}>Test</span></Button>
             </ButtonGroup>
-          </Nav>
+          </Nav> 
           <Nav style={{float:'right'}}>
             <Button onClick={handleExport} variant="outline-light">Export</Button>
           </Nav>
@@ -139,12 +153,8 @@ function Editor() {
       <div id="code" style={{display:mode==='code'?'block':'none'}}>
           <CodeEditor code={code} onChange={handleCode}/>
       </div>
-      <div id="test" style={{display:mode==='test'?'block':'none'}}>
-        <LiveProvider code={buildTestCode(''||code.replace('MAGICALLY_GENERATED_JSX', jsxConverter.convert(editor&&editor.getHtml()||'')))} noInline={true}>
-          {console.log(buildTestCode(''||code.replace('MAGICALLY_GENERATED_JSX', jsxConverter.convert(editor&&editor.getHtml()||''))))}
-          <LiveError />
-          <LivePreview />
-        </LiveProvider>
+      <div id="test" ref={storyRef} style={{display:mode==='test'?'block':'none'}}>
+     
       </div>
     </>
   );
