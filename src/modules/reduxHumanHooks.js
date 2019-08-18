@@ -8,7 +8,3 @@ export const useBoundActions = (actions) => {
     const dispatch = useDispatch();
     return useMemo(()=>bindActionCreators(actions, dispatch),[actions,dispatch]);
 }
-
-export const createAction = id => payload => {
-    return {type:id,payload:payload}
-}
