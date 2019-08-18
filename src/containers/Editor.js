@@ -1,33 +1,26 @@
-import React,{useState,useEffect,useRef} from 'react';
-//import CodeEditor from './CodeEditor'
-import codeTemplate,{buildTestCode} from '../services/codeService'
-
-
-import HTMLtoJSX from 'htmltojsx';
-
-///New ordered imports
+import React from 'react';
+import * as actions from '../store/actions';
+import {useSelector,useBoundActions} from '../modules/reduxHumanHooks';
 import DesignEditor from './DesignEditor/DesignEditor';
 import CodeEditor from './CodeEditor/CodeEditor';
 import TestingEditor from './TestingEditor/TestingEditor';
-
-const jsxConverter = new HTMLtoJSX({
-    createClass: false,
-    outputClassName: 'ReactWeaverComponent'
-  });
+import NavBar from '../components/NavBar';
+import Selector from '../components/Selector';
 
 
 function Editor() {
-  const [mode,setMode] = useState('design');
-  const [code,setCode] = useState('');
+  console.log("Editor render");
+  const tab = useSelector(state=>state.editorTab);
+  console.log(tab);
+  const {setEditorTab,setCode} =  useBoundActions(actions);
   
-
   const handleCode = (newValue)=>{
-    console.log(newValue)
     setCode(newValue);
   }
 
   const handleTab = (mode) => {
-    setMode(mode);
+    console.log(mode)
+    setEditorTab(mode);
     switch(mode){
       case 'design':
           break;
@@ -39,80 +32,24 @@ function Editor() {
     }    
   }
 
-  return (
-    <>
-      <NavBar/>
-      <div id="design" style={{display:mode==='design'?'block':'none'}}>
-          <DesignEditor/>
-      </div>
-      <div id="code" style={{display:mode==='code'?'block':'none'}}>
-          <CodeEditor code={code} onChange={handleCode}/>
-      </div>
-      <div id="test" style={{display:mode==='test'?'block':'none'}}>
-        <TestingEditor/>
-      </div>
-    </>
-  );
-}
-
-
-export default Editor;
-import React,{useState,useEffect,useRef} from 'react';
-//import CodeEditor from './CodeEditor'
-import codeTemplate,{buildTestCode} from '../services/codeService'
-
-
-import HTMLtoJSX from 'htmltojsx';
-
-///New ordered imports
-import DesignEditor from './DesignEditor/DesignEditor';
-import CodeEditor from './CodeEditor/CodeEditor';
-import TestingEditor from './TestingEditor/TestingEditor';
-
-const jsxConverter = new HTMLtoJSX({
-    createClass: false,
-    outputClassName: 'ReactWeaverComponent'
-  });
-
-
-function Editor() {
-  const [mode,setMode] = useState('design');
-  const [code,setCode] = useState('');
-  
-
-  const handleCode = (newValue)=>{
-    console.log(newValue)
-    setCode(newValue);
-  }
-
-  const handleTab = (mode) => {
-    setMode(mode);
-    switch(mode){
-      case 'design':
-          break;
-      case 'code':
-          break;
-      case 'test':
-          break;
-      default:
-    }    
+  const handleAction = (action, values) => {
+    
   }
 
   return (
     <>
-      <NavBar/>
-      <div id="design" style={{display:mode==='design'?'block':'none'}}>
+       <NavBar onAction={handleAction} onTabChange={handleTab}/>
+        <Selector condition={tab==='design'}>
           <DesignEditor/>
-      </div>
-      <div id="code" style={{display:mode==='code'?'block':'none'}}>
-          <CodeEditor code={code} onChange={handleCode}/>
-      </div>
-      <div id="test" style={{display:mode==='test'?'block':'none'}}>
-        <TestingEditor/>
-      </div>
+        </Selector>
+        <Selector condition={tab==='code'}>
+          <CodeEditor onChange={handleCode}/>
+        </Selector>
+        <Selector condition={tab==='test'}>
+          <TestingEditor/>
+        </Selector>
     </>
   );
 }
-
 
 export default Editor;

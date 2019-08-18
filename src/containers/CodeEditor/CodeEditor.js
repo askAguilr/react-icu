@@ -1,15 +1,19 @@
 import React, { useRef, useState } from "react";
+import {useSelector} from 'react-redux';
 import Editor from "@monaco-editor/react";
  
 const CodeEditor= props =>{
-  const {code,onChange} = props;
-  const [isEditorReady, setIsEditorReady] = useState(false);
+  console.log("Code editor render");
+  const {onChange} = props;
+  //const [isEditorReady, setIsEditorReady] = useState(false);
   const editorRef = useRef();
+  const code = useSelector(state=>state.code);
+
   const BAD_WORD = "eval";
   const WORNING_MESSAGE = " <- This is dangerous";
 
   function handleEditorDidMount(_valueGetter,editor) {
-    setIsEditorReady(true);
+    //setIsEditorReady(true);
     editorRef.current = editor;
     editorRef.current.onDidChangeModelContent(ev => {
       const value=editorRef.current.getValue();

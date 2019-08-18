@@ -1,3 +1,10 @@
+import HTMLtoJSX from 'htmltojsx';
+
+const jsxConverter = new HTMLtoJSX({
+  createClass: false,
+  outputClassName: 'ReactWeaverComponent'
+});
+
 const jsxTemplate = 
 `
 
@@ -8,14 +15,22 @@ const MyComponent = props => {
 
 return (MAGICALLY_GENERATED_JSX); 
 }
-`
+`;
 
-export const buildTestCode = (code) =>
-`
-${code}
+export const buildTestCode = (code) =>{
+  return `
+  ${code}
+  
+    render(
+      <MyComponent />
+    )`;
+}
 
-  render(
-    <MyComponent />
-  )`
+
+
+
+
+
+  
 
 export default jsxTemplate;
