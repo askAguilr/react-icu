@@ -1,6 +1,6 @@
 import React from 'react';
 import * as actions from '../store/actions';
-import {useSelector,useBoundActions} from '../modules/reduxHumanHooks';
+import {useReduxState,useBindActionCreators} from '../modules/reduxHumanHooks';
 import DesignEditor from './DesignEditor/DesignEditor';
 import CodeEditor from './CodeEditor/CodeEditor';
 import TestingEditor from './TestingEditor/TestingEditor';
@@ -10,9 +10,9 @@ import Selector from '../components/Selector';
 
 function Editor() {
   console.log("Editor render");
-  const tab = useSelector(state=>state.editorTab);
+  const tab = useReduxState(state=>state.editorTab);
   console.log(tab);
-  const {setEditorTab,setCode} =  useBoundActions(actions);
+  const {setEditorTab,setCode} =  useBindActionCreators(actions);
   
   const handleCode = (newValue)=>{
     setCode(newValue);
