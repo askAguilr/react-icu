@@ -1,9 +1,8 @@
-import {createAction} from 'redux-actions';
+import {createAction,createActions} from 'react-redux-human-hooks';
 
+export const { setPreview, setEditorTab,setHTML}
+ = createActions('SET_PREVIEW','SET_EDITOR_TAB','SET_HTML')
 
-export const setPreview = createAction('SET_PREVIEW');
-export const setHTML = createAction('SET_HTML');
-export const setEditorTab = createAction('SET_EDITOR_TAB');
 export const setCode = createAction('SET_CODE');
 
 

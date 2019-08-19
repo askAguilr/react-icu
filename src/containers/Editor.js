@@ -1,6 +1,6 @@
 import React from 'react';
 import * as actions from '../store/actions';
-import {useReduxState,useBindActionCreators} from '../modules/reduxHumanHooks';
+import {useReduxState,useBindActionCreators} from 'react-redux-human-hooks';
 import DesignEditor from './DesignEditor/DesignEditor';
 import CodeEditor from './CodeEditor/CodeEditor';
 import TestingEditor from './TestingEditor/TestingEditor';

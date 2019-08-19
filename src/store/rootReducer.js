@@ -1,7 +1,7 @@
-import {handleActions} from 'redux-actions';
+import {createReducer} from 'react-redux-human-hooks'
 import * as actions from './actions';
 
-const reducer = handleActions(
+const reducer = createReducer(
     {
         [actions.setPreview]: (state, action) => ({
             ...state,
