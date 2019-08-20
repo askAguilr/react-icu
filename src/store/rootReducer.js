@@ -1,5 +1,7 @@
 import {createReducer} from 'react-redux-human-hooks'
-import * as actions from './actions';
+import actions from '../store/actions';
+console.log(actions);
+
 
 const reducer = createReducer(
     {
@@ -7,7 +9,7 @@ const reducer = createReducer(
             ...state,
             preview: action.payload
         }),
-        [actions.setHTML]: (state, action) => ({
+        [actions.setHtml]: (state, action) => ({
             ...state,
             html: action.payload
         }),

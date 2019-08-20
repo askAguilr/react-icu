@@ -1,6 +1,5 @@
 import React from 'react';
-import * as actions from '../store/actions';
-import {useReduxState,useBindActionCreators} from 'react-redux-human-hooks';
+import { useBoundActions ,useReduxState} from '../services/reduxService';
 import DesignEditor from './DesignEditor/DesignEditor';
 import CodeEditor from './CodeEditor/CodeEditor';
 import TestingEditor from './TestingEditor/TestingEditor';
@@ -8,15 +7,11 @@ import NavBar from '../components/NavBar';
 import Selector from '../components/Selector';
 
 
+
 function Editor() {
   console.log("Editor render");
+  const {setEditorTab} =  useBoundActions();
   const tab = useReduxState(state=>state.editorTab);
-  console.log(tab);
-  const {setEditorTab,setCode} =  useBindActionCreators(actions);
-  
-  const handleCode = (newValue)=>{
-    setCode(newValue);
-  }
 
   const handleTab = (mode) => {
     console.log(mode)
@@ -43,7 +38,7 @@ function Editor() {
           <DesignEditor/>
         </Selector>
         <Selector condition={tab==='code'}>
-          <CodeEditor onChange={handleCode}/>
+          <CodeEditor/>
         </Selector>
         <Selector condition={tab==='test'}>
           <TestingEditor/>

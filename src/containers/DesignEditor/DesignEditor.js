@@ -1,4 +1,5 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import {useReduxState, useBoundActions} from '../../services/reduxService';
 import grapesjs from 'grapesjs';
 import 'grapesjs/dist/css/grapes.min.css';
 import blocks from './blocks'
@@ -8,16 +9,14 @@ import {plugins,pluginsOpts} from './plugins'
 
 let editor;
 
-const DesignEditor= props =>{
 
-    const handleExport = ()=>{
-        console.log();
-      editor.runCommand('gjs-export-zip');
-    }
-  
-    const handleNew = ()=>{
-      editor.setComponents('');
-      //setCode(codeTemplate); TODO:REDUX
+const DesignEditor= props =>{
+    const {setHtml}= useBoundActions();
+    const tab = useReduxState(state=>state.editorTab);
+    const prevTab = useState(tab)
+
+    if(tab!==prevTab && tab!=='design' && editor){
+      setHtml(editor.getHtml());
     }
 
     useEffect(()=>{
@@ -83,5 +82,15 @@ const DesignEditor= props =>{
     </>
   );
 }
+
+   /* const handleExport = ()=>{
+        console.log();
+      editor.runCommand('gjs-export-zip');
+    }
+  
+    const handleNew = ()=>{
+      editor.setComponents('');
+      //setCode(codeTemplate); TODO:REDUX
+    }*/
 
 export default DesignEditor;
