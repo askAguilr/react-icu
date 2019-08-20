@@ -1,5 +1,5 @@
 import {createReducer} from 'react-redux-human-hooks'
-import actions from '../store/actions';
+import {actions} from '../store/actions';
 console.log(actions);
 
 

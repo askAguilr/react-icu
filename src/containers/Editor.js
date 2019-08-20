@@ -1,5 +1,5 @@
 import React from 'react';
-import { useBoundActions ,useReduxState} from '../services/reduxService';
+import {useBoundActions,useReduxState} from '../store/store';
 import DesignEditor from './DesignEditor/DesignEditor';
 import CodeEditor from './CodeEditor/CodeEditor';
 import TestingEditor from './TestingEditor/TestingEditor';

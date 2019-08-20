@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {useReduxState, useBoundActions} from '../../services/reduxService';
+import {useReduxState, useBoundActions} from '../../store/store';
 import grapesjs from 'grapesjs';
 import 'grapesjs/dist/css/grapes.min.css';
 import blocks from './blocks'
@@ -8,7 +8,6 @@ import storage from  './storage'
 import {plugins,pluginsOpts} from './plugins'
 
 let editor;
-
 
 const DesignEditor= props =>{
     const {setHtml}= useBoundActions();
