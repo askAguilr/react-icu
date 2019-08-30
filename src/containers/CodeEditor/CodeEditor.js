@@ -1,7 +1,6 @@
-import React, { useRef,useMemo} from "react";
+import React, { useRef} from "react";
 import {useReduxState,useBoundActions} from '../../store/store';
 import Editor from "@monaco-editor/react";
-
 
 const CodeEditor= props =>{
   console.log("Code editor render");
