@@ -1,17 +1,18 @@
 import React from 'react';
-import {useBoundActions,useReduxState} from '../store/store';
+import {useBoundActions,useReduxState} from '../modules/react-redux-thunk-easy';
 import DesignEditor from './DesignEditor/DesignEditor';
 import CodeEditor from './CodeEditor/CodeEditor';
 import TestingEditor from './TestingEditor/TestingEditor';
 import NavBar from '../components/NavBar';
 import Selector from '../components/Selector';
 import {emptyTemplate} from '../services/templateService';
-
+import * as actions from '../store/actions'
 
 
 function Editor() {
   console.log("Editor render");
-  const {setEditorTab,newComponent,build} =  useBoundActions();
+  const {setEditorTab,newComponent} =  useBoundActions();
+  const {build}=useBoundActions(actions);
   const tab = useReduxState(state=>state.editorTab);
 
   const handleTab = (mode) => {
@@ -23,7 +24,7 @@ function Editor() {
       case 'code':
           break;
       case 'test':
-          build();
+          build('holiss')
           break;
       default:
     }    

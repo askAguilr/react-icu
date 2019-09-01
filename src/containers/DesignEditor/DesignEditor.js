@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {useReduxState, useBoundActions} from '../../store/store';
+import {useReduxState, useBoundActions} from '../../modules/react-redux-thunk-easy';
 import grapesjs from 'grapesjs';
 import 'grapesjs/dist/css/grapes.min.css';
 import blocks from './blocks'
@@ -10,12 +10,14 @@ import {plugins,pluginsOpts} from './plugins'
 let editor;
 
 const DesignEditor= props =>{
-    const {setHtml}= useBoundActions();
+    const {setHtml,setCss}= useBoundActions();
     const tab = useReduxState(state=>state.editorTab);
     const prevTab = useState(tab)
 
     if(tab!==prevTab && tab!=='design' && editor){
       setHtml(editor.getHtml());
+      console.log(editor.getCss());
+      setCss(editor.getCss());
     }
 
     useEffect(()=>{

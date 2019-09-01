@@ -1,9 +1,11 @@
-import {useReduxState,useBindActionCreators} from 'react-redux-human-hooks';
+import {Provider,useReduxState,initStore,useBoundActions} from '../modules/react-redux-thunk-easy';
 import {actions} from './actions';
+import rootReducer from './rootReducer';
 
+const store = initStore(
+    rootReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    actions
+);
 
-const useBoundActions = (act=actions)=>{
-    return useBindActionCreators(act);
-}
-
-export {actions,useBoundActions,useReduxState};
+export {store, Provider};

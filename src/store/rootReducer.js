@@ -1,10 +1,11 @@
 import {createReducer} from 'react-redux-human-hooks'
-import {actions} from '../store/actions';
+import * as actions from '../store/actions';
 console.log(actions);
 
 const initialState = { 
-    editorTab: 'code',
+    editorTab: 'design',
     html:'',
+    css:'',
     code:'',
     preview:'',
     imports:{
@@ -23,6 +24,10 @@ const reducer = createReducer(
             ...state,
             html: action.payload
         }),
+        [actions.setCss]: (state, action) => ({
+            ...state,
+            css: action.payload
+        }),
         [actions.setCode]: (state, action) => ({
             ...state,
             code: action.payload
@@ -31,7 +36,7 @@ const reducer = createReducer(
             ...state,
             editorTab: action.payload
         }),
-        [actions.setPreview]: (state, action) => ({
+        [actions.newComponent]: (state, action) => ({
             ...initialState,
             code:action.payload.code,
         }),

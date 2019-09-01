@@ -1,5 +1,5 @@
 import React, { useRef} from "react";
-import {useReduxState,useBoundActions} from '../../store/store';
+import {useReduxState,useBoundActions} from '../../modules/react-redux-thunk-easy';
 import Editor from "@monaco-editor/react";
 
 const CodeEditor= props =>{
