@@ -9,13 +9,9 @@ export const {
     setPreview,setEditorTab,setHtml,setCss,setCode,newComponent
 }=actions;
 
-export const prebuild = createThunk((payload,state,actions)=>{
-    console.log("-PREBUILD"+payload);
-});
-
 export const build = createThunk((payload,state,actions)=>{
     actions.setPreview(buildTestCode(state.code,state.html,state.css));
-},{prebuild})
+},)
 
 
 

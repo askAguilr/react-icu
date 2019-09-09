@@ -1,17 +1,16 @@
 import React, { useRef, useState } from "react";
 import {useReduxState} from '../../modules/react-redux-thunk-easy';
-import {LiveProvider,LiveEditor,LiveError,LivePreview} from 'react-live'
+import {LiveProvider,LiveError,LivePreview} from 'react-live'
+import './TestingEditor.css'
 
 const TestingEditor= props =>{
   const {preview} = useReduxState(state=>state);
   return (
-    <div style={{backgroundColor:'white'}}>
+    <div className='test-editor'>
         <LiveProvider code={preview} noInline={true}>
-              {console.log(preview)}
-              <LiveEditor/>
               <LiveError />
               <LivePreview />
-            </LiveProvider>
+        </LiveProvider>
     </div>
   );
 }

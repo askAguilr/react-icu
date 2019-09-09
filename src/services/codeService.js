@@ -16,17 +16,13 @@ export const injectJSX = (code,jsx)=>{
 export const buildTestCode = (code,html,css) =>{
   console.log(html)
   console.log(code)
-  const jsx=buildJSX(html);
+  const jsx=buildJSX('<style>'+css
+  +'</style>'+html);
   console.log(jsx);
   return `
   ${injectJSX(code,jsx)}
   
     render(
-      <>
-      <style>
-      ${css}
-      </style>
       <MyComponent />
-      </>
     )`;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Selector = ({children,condition})=>{
     return(
-        <div id="code" style={{display:condition?'block':'none'}}>
+        <div style={{display:condition?'block':'none'}}>
             {children}
         </div>
     )

@@ -4,6 +4,11 @@ body, html {
   height: 100vh;
   background-color: #222;
 }
+html,
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
 #gjs {
   height: auto;
   width: auto;
@@ -55,20 +60,7 @@ body, html {
   height: auto;
 }
 
-#code{
-  display: inline;
-}
-
-#code section {
-  max-height: calc(100vh - 43px);
-}
-
 #design{
   display: inline;
 }
 
-#test div div div {
-  max-height: calc(100vh - 43px) !important; 
-  top:unset !important;
-  bottom:0 !important;
-}
