@@ -24,7 +24,7 @@ function Editor() {
       case 'code':
           break;
       case 'test':
-          build('holiss')
+          build();
           break;
       default:
     }    

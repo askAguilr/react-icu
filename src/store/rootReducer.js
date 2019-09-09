@@ -8,10 +8,7 @@ const initialState = {
     css:'',
     code:'',
     preview:'',
-    imports:{
-        css:[],
-        js:[],
-    }
+    dependencies:[],
 }
 
 const reducer = createReducer(
@@ -39,6 +36,14 @@ const reducer = createReducer(
         [actions.newComponent]: (state, action) => ({
             ...initialState,
             code:action.payload.code,
+        }),
+        [actions.addDependency]: (state, action) => ({
+            ...state,
+            dependencies: [...state.dependencies,action.payload]
+        }),
+        [actions.removeDependency]: (state, action) => ({
+            ...state,
+            dependencies: state.dependencies.filter((item,i)=>i!==action.payload)
         }),
     },
     //Initial state
