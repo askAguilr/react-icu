@@ -26,3 +26,16 @@ export const buildTestCode = (code,html,css) =>{
       <MyComponent />
     )`;
 }
+
+export const loadCodeStorage = ()=>{
+  const code = localStorage.getItem('code');
+  if(code!==null){
+    return code;
+  }else{
+    return '';
+  }
+}
+
+export const saveCodeStorage = code => {
+  localStorage.setItem('code',code);
+}
